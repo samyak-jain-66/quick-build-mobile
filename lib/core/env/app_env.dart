@@ -3,27 +3,27 @@ class AppEnv {
 
   static const apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://10.0.2.2:3000/api',
+    defaultValue: 'https://quick-build-backend.onrender.com',
   );
 
   static const supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: '',
+    defaultValue: 'https://raomkerdxqwikpppnika.supabase.co',
   );
 
   static const supabaseAnonKey = String.fromEnvironment(
     'SUPABASE_ANON_KEY',
-    defaultValue: '',
+    defaultValue: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhb21rZXJkeHF3aWtwcHBuaWthIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMTIzNzQsImV4cCI6MjA5MjU4ODM3NH0.A_wjmmmGYCV0eLyWosWktrMHUOaXZbp-t0bt5u7EmHo',
   );
 
   static const googleMapsApiKey = String.fromEnvironment(
     'GOOGLE_MAPS_API_KEY',
-    defaultValue: '',
+    defaultValue: 'AIzaSyApgJd_IS-z0xUM103CIdCCHZWHd9Bz6O4',
   );
 
   static const razorpayKeyId = String.fromEnvironment(
     'RAZORPAY_KEY_ID',
-    defaultValue: 'rzp_test_dummy',
+    defaultValue: 'rzp_test_ShLESvGcbdl1yj',
   );
 
   /// Web OAuth client ID from the Firebase / Google Cloud project. Used as
@@ -31,7 +31,7 @@ class AppEnv {
   /// Supabase, which expects the Google provider's web client audience.
   static const googleWebClientId = String.fromEnvironment(
     'GOOGLE_WEB_CLIENT_ID',
-    defaultValue: '',
+    defaultValue: '820520818404-ldj61fqa7sugcslqv593q5ubocbghk7r.apps.googleusercontent.com',
   );
 
   static bool get isConfigured =>

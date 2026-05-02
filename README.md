@@ -35,17 +35,41 @@ flutter pub get
 
 ## 2. Run the app
 
-The app reads its config via `--dart-define` at run time. Easiest is to pass
-them directly:
+The app reads its config via `--dart-define` at run time. Values live in a
+gitignored `.env.json` at the repo root; a thin `scripts/run.sh` wrapper
+forwards them to Flutter via `--dart-define-from-file`.
 
 ```bash
-flutter run \
-  --dart-define=API_BASE_URL=http://10.0.2.2:3000/api \
-  --dart-define=SUPABASE_URL=$SUPABASE_URL \
-  --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY \
-  --dart-define=GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY \
-  --dart-define=RAZORPAY_KEY_ID=$RAZORPAY_KEY_ID
+cp .env.example.json .env.json   # then fill in values
+scripts/run.sh                   # forwards args to `flutter run`
 ```
+
+Examples:
+
+```bash
+scripts/run.sh                   # selected device
+scripts/run.sh -d emulator-5554  # specific device
+scripts/run.sh --release         # release run
+
+# The same env file works for builds:
+flutter build apk --dart-define-from-file=.env.json
+flutter build appbundle --dart-define-from-file=.env.json
+flutter build ios --dart-define-from-file=.env.json
+```
+
+Mobile-only keys live in `.env.json`:
+
+- `API_BASE_URL`
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY` (anon key only — RLS-gated)
+- `RAZORPAY_KEY_ID` (publishable key id, no secret)
+- `GOOGLE_MAPS_API_KEY`
+- `GOOGLE_WEB_CLIENT_ID`
+
+> Server-side secrets — `SUPABASE_SERVICE_ROLE_KEY`, `SUPABASE_JWT_SECRET`,
+> `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`, `FCM_SERVICE_ACCOUNT_JSON`,
+> `MSG91_*`, `RESEND_*`, `WHATSAPP_*`, `TWILIO_*`, `REDIS_*`, `ADMIN_API_KEY`
+> — belong in **quick-build-backend**'s env, not in this repo. They must
+> never ship inside the APK/IPA.
 
 `API_BASE_URL` host cheat-sheet:
 
