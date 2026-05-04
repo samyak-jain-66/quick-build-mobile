@@ -3,7 +3,7 @@ class AppEnv {
 
   static const apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'https://quick-build-backend.onrender.com',
+    defaultValue: 'https://quick-build-backend.onrender.com/api',
   );
 
   static const supabaseUrl = String.fromEnvironment(
