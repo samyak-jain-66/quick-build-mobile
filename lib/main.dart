@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +22,18 @@ Future<void> main() async {
     ),
   );
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  // Background messages: must be registered before runApp so the FCM
-  // Android plugin can hand them off to the top-level entry point.
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // iOS is intentionally skipped: `firebase_options.dart` was generated
+  // without an iOS entry, so initializing Firebase on iOS would throw at
+  // launch. Re-run `flutterfire configure --platforms=ios` and drop this
+  // guard once a real `GoogleService-Info.plist` exists.
+  if (!Platform.isIOS) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    // Background messages: must be registered before runApp so the FCM
+    // Android plugin can hand them off to the top-level entry point.
+    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  }
 
   await Hive.initFlutter();
   await Hive.openBox<String>('recent_searches');

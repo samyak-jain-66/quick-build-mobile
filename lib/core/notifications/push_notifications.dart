@@ -36,6 +36,10 @@ class PushNotificationsService {
 
   Future<void> initForUser(String userId) async {
     if (_registeredForUserId == userId) return; // already wired
+    // Firebase is not initialized on iOS yet (see lib/main.dart). Skip
+    // FCM registration there so callers don't trip the
+    // "[core/no-app] No Firebase App '[DEFAULT]' has been created" error.
+    if (Platform.isIOS) return;
     _registeredForUserId = userId;
 
     final messaging = FirebaseMessaging.instance;

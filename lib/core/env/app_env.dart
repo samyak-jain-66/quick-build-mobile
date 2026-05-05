@@ -34,6 +34,15 @@ class AppEnv {
     defaultValue: '820520818404-ldj61fqa7sugcslqv593q5ubocbghk7r.apps.googleusercontent.com',
   );
 
+  /// iOS-typed OAuth client ID (Application type: iOS in Google Cloud
+  /// Console). Required by GIDSignIn on iOS - native code reads it from
+  /// Info.plist (GIDClientID) and we also pass it to the Dart
+  /// GoogleSignIn(clientId:) constructor for plugin-version safety.
+  static const googleIosClientId = String.fromEnvironment(
+    'GOOGLE_IOS_CLIENT_ID',
+    defaultValue: '820520818404-ms3jomuub5nk5kkmjfm3tu9dj7kkv8jd.apps.googleusercontent.com',
+  );
+
   static bool get isConfigured =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 }
